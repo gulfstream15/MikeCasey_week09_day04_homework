@@ -17,7 +17,7 @@ public class CustomerTest {
     }
 
     @Test
-    public void getCustomerName() {
+    public void hasName() {
         Customer customer = new Customer("Mike");
         assertEquals("Mike", customer.getCustomerName());
     }
