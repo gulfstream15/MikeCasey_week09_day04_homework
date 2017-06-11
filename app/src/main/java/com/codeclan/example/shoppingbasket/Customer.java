@@ -22,11 +22,7 @@ public class Customer {
         this.customerName = newCustomerName;
     }
 
-    public Boolean getLoyalty() {
-        return this.loyalty;
-    }
-
-    public Boolean setLoyalty(String customerName) {
+    public boolean getLoyalty(String customerName) {
         switch (customerName) {
             case "Mike":
                 loyalty = true;

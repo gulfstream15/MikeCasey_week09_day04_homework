@@ -11,28 +11,54 @@ import java.util.HashMap;
 public class ShoppingBasket implements Shoppable{
 
     private String customerName;
-    private String itemId;
-    HashMap basket = new HashMap();
+    private Integer itemId;
+
+    HashMap<Integer, Item> basket = new HashMap<Integer, Item>();
+    Customer customer = new Customer(customerName);
+    Item itemOne = new Item("Cornflakes", 3, 2, true);
 
     public ShoppingBasket(String customerName) {
         this.customerName = customerName;
+        this.itemId = itemId;
     }
 
-    public boolean addItem(Item item) {
-        return true;
+    public void addItem(Integer itemId, Item item) {
+        basket.put(itemId, item);
     }
 
-    public boolean removeItem(Item item) {
-        return true;
+    public void removeItem(Integer itemId) {
+        basket.remove(itemId);
     }
 
-    public boolean emptyBasket() {
-        return true;
+    public void emptyBasket() {
+        basket.clear();
     }
 
-    public int getValue() {
+    public int getBasketSize() {
+        int sizeBasket = basket.size();
+        return sizeBasket;
+    }
+
+    public String getCustomerName() {
+        return this.customerName;
+    }
+
+    public void setCustomerName(String newCustomerName) {
+        this.customerName = newCustomerName;
+    }
+
+    public boolean getCustomerLoyalty() {
+        boolean customerLoyalty = customer.getLoyalty(customerName);
+        return customerLoyalty;
+    }
+
+    public int getBasketValue() {
         return 10;
     }
 
+//    public boolean getItemTwoForOneOffer(Item item) {
+//        boolean itemOffer = item.getTwoForOneOffer(item);
+//        return itemOffer;
+//    }
 
 }

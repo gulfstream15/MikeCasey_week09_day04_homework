@@ -9,13 +9,13 @@ public class Item {
     private String name;
     private int price;
     private int quantity;
-    private boolean offer;
+    private boolean twoForOneoffer;
 
-    public Item(String name, int price, int quantity, boolean offer) {
+    public Item(String name, int price, int quantity, boolean twoForOneoffer) {
         this.name = name;
         this.price = price;
         this.quantity = quantity;
-        this.offer = offer;
+        this.twoForOneoffer = twoForOneoffer;
     }
 
     public String getName() {
@@ -45,12 +45,11 @@ public class Item {
 
     }
 
-    public boolean getOffer() {
-        return this.offer;
+    public boolean getTwoForOneOffer() {
+        return this.twoForOneoffer;
     }
 
-    public void setOffer(boolean newOffer) {
-        this.offer = newOffer;
-
+    public void SetTwoForOneOffer(boolean newOffer) {
+        this.twoForOneoffer = newOffer;
     }
 }

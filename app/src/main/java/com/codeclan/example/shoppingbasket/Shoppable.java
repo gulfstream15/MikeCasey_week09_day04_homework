@@ -6,9 +6,10 @@ package com.codeclan.example.shoppingbasket;
 
 public interface Shoppable {
 
-    boolean addItem(Item item);
-    boolean removeItem(Item item);
-    boolean emptyBasket();
-    int getValue();
+    void addItem(Integer itemId, Item item);
+    void removeItem(Integer itemId);
+    void emptyBasket();
+    int getBasketSize();
+    int getBasketValue();
 
 }

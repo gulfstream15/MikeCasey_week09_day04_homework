@@ -39,13 +39,13 @@ public class ItemTest {
     @Test
     public void hasNoOffer() {
         item = new Item("Cornflakes", 3, 2, false);
-        assertEquals(false, item.getOffer());
+        assertEquals(false, item.getTwoForOneOffer());
     }
 
     @Test
     public void hasOffer() {
         item = new Item("Cornflakes", 3, 2, true);
-        assertEquals(true, item.getOffer());
+        assertEquals(true, item.getTwoForOneOffer());
     }
 
 

@@ -23,15 +23,15 @@ public class CustomerTest {
     }
 
     @Test
-    public void getLoyaltyMike() {
+    public void customerHasLoyalty() {
         Customer customer = new Customer("Mike");
-        assertEquals(true, customer.setLoyalty("Mike"));
+        assertEquals(true, customer.getLoyalty("Mike"));
     }
 
     @Test
-    public void getLoyaltyBob() {
+    public void customerNoLoyalty() {
         Customer customer = new Customer("Bob");
-        assertEquals(false, customer.setLoyalty("Bob"));
+        assertEquals(false, customer.getLoyalty("Bob"));
     }
 
 }
