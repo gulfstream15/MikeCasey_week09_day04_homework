@@ -18,56 +18,59 @@ public class ShoppingBasketTest {
     }
 
     @Test
+    public void basketHasCustomer() {
+        ShoppingBasket basket = new ShoppingBasket("Mike");
+        String basketCustomer = basket.getCustomerName();
+        assertEquals("Mike", basketCustomer);
+    }
+
+    @Test
     public void canAddItem() {
-        ShoppingBasket shoppingBasket = new ShoppingBasket("Mike");
+        ShoppingBasket basket = new ShoppingBasket("Mike");
         Item item = new Item("Cornflakes", 3, 1, true);
         Integer itemId = 100;
-        shoppingBasket.addItem(itemId,item);
-        int sizeBasket = shoppingBasket.getBasketSize();
+        basket.addItem(itemId,item);
+        int sizeBasket = basket.getBasketSize();
         assertEquals(1, sizeBasket);
     }
 
     @Test
     public void canRemoveItem() {
-        ShoppingBasket shoppingBasket = new ShoppingBasket("Mike");
+        ShoppingBasket basket = new ShoppingBasket("Mike");
         Item itemOne = new Item("Cornflakes", 3, 2, true);
         Integer itemIdOne = 100;
-        shoppingBasket.addItem(itemIdOne, itemOne);
+        basket.addItem(itemIdOne, itemOne);
         Item itemTwo = new Item("Rice Crispies", 2, 1, true);
         Integer itemIdTwo = 101;
-        shoppingBasket.addItem(itemIdTwo, itemTwo);
-        shoppingBasket.removeItem(itemIdTwo);
-        assertEquals(1, shoppingBasket.getBasketSize());
+        basket.addItem(itemIdTwo, itemTwo);
+        basket.removeItem(itemIdTwo);
+        assertEquals(1, basket.getBasketSize());
     }
 
     @Test
     public void canEmptyBasket() {
-        ShoppingBasket shoppingBasket = new ShoppingBasket("Mike");
+        ShoppingBasket basket = new ShoppingBasket("Mike");
         Item itemOne = new Item("Cornflakes", 3, 2, true);
         Integer itemIdOne = 100;
-        shoppingBasket.addItem(itemIdOne, itemOne);
-        shoppingBasket.emptyBasket();
-        assertEquals(0, shoppingBasket.getBasketSize());
+        basket.addItem(itemIdOne, itemOne);
+        basket.emptyBasket();
+        assertEquals(0, basket.getBasketSize());
     }
 
     @Test
-    public void basketHasValue() {
-        ShoppingBasket shoppingBasket = new ShoppingBasket("Mike");
-        int valueBasket = shoppingBasket.getBasketValue();
-        assertEquals(10, valueBasket);
-    }
-
-    @Test
-    public void basketHasCustomer() {
-        ShoppingBasket shoppingBasket = new ShoppingBasket("Mike");
-        String basketCustomer = shoppingBasket.getCustomerName();
-        assertEquals("Mike", basketCustomer);
+    public void basketHasItems() {
+        ShoppingBasket basket = new ShoppingBasket("Mike");
+        Item itemOne = new Item("Cornflakes", 3, 2, true);
+        Integer itemIdOne = 100;
+        basket.addItem(itemIdOne, itemOne);
+        int basketSize = basket.getBasketSize();
+        assertEquals(1, basketSize);
     }
 
     @Test
     public void customerHasLoyalty() {
-        ShoppingBasket shoppingBasket = new ShoppingBasket("Mike");
-        String customerName = shoppingBasket.getCustomerName();
+        ShoppingBasket basket = new ShoppingBasket("Mike");
+        String customerName = basket.getCustomerName();
         Customer customer = new Customer(customerName);
         boolean customerLoyalty = customer.getLoyalty(customerName);
         assertEquals(true, customerLoyalty);
@@ -75,17 +78,79 @@ public class ShoppingBasketTest {
 
     @Test
     public void customerHasNoLoyalty() {
-        ShoppingBasket shoppingBasket = new ShoppingBasket("Bob");
-        String customerName = shoppingBasket.getCustomerName();
+        ShoppingBasket basket = new ShoppingBasket("Bob");
+        String customerName = basket.getCustomerName();
         Customer customer = new Customer(customerName);
         boolean customerLoyalty = customer.getLoyalty(customerName);
         assertEquals(false, customerLoyalty);
     }
 
-//    @Test
-//    public void itemHasTwoForOneOffer() {
-//        ShoppingBasket shoppingBasket = new ShoppingBasket("Mike");
-//        assertEquals(true, itemOne.getTwoForOneOffer());
-//    }
+    @Test
+    public void itemHasTwoForOneOffer() {
+        ShoppingBasket basket = new ShoppingBasket("Mike");
+        Item itemOne = new Item("Cornflakes", 3, 2, true);
+        boolean itemOffer = basket.getItemTwoForOneOffer(itemOne);
+        assertEquals(true, itemOffer);
+    }
+
+    @Test
+    public void itemNoTwoForOneOffer() {
+        ShoppingBasket basket = new ShoppingBasket("Mike");
+        Item itemOne = new Item("Porridge", 4, 1, false);
+        boolean itemOffer = basket.getItemTwoForOneOffer(itemOne);
+        assertEquals(false, itemOffer);
+    }
+
+    @Test
+    public void BasketWithTwoForOneAndLoyalty() {
+        ShoppingBasket basket = new ShoppingBasket("Mike");
+        Item itemOne = new Item("Cornflakes", 15, 2, true);
+        Integer itemIdOne = 100;
+        basket.addItem(itemIdOne, itemOne);
+        Item itemTwo = new Item("Rice Crispies", 10, 2, false);
+        Integer itemIdTwo = 101;
+        basket.addItem(itemIdTwo, itemTwo);
+        double basketValue = basket.getBasketValue();
+        assertEquals(30.87, basketValue, 0.0);
+    }
+
+    @Test
+    public void BasketWithTwoForOneAndNoLoyalty() {
+        ShoppingBasket basket = new ShoppingBasket("Bob");
+        Item itemOne = new Item("Cornflakes", 15, 2, true);
+        Integer itemIdOne = 100;
+        basket.addItem(itemIdOne, itemOne);
+        Item itemTwo = new Item("Rice Crispies", 10, 2, false);
+        Integer itemIdTwo = 101;
+        basket.addItem(itemIdTwo, itemTwo);
+        double basketValue = basket.getBasketValue();
+        assertEquals(31.50, basketValue, 0.0);
+    }
+
+    @Test
+    public void BasketNoTwoForOneAndLoyalty() {
+        ShoppingBasket basket = new ShoppingBasket("Mike");
+        Item itemOne = new Item("Cornflakes", 15, 2, false);
+        Integer itemIdOne = 100;
+        basket.addItem(itemIdOne, itemOne);
+        Item itemTwo = new Item("Rice Crispies", 10, 2, false);
+        Integer itemIdTwo = 101;
+        basket.addItem(itemIdTwo, itemTwo);
+        double basketValue = basket.getBasketValue();
+        assertEquals(44.1, basketValue, 0.0);
+    }
+
+    @Test
+    public void BasketNoTwoForOneAndNoLoyalty() {
+        ShoppingBasket basket = new ShoppingBasket("Bob");
+        Item itemOne = new Item("Cornflakes", 15, 2, false);
+        Integer itemIdOne = 100;
+        basket.addItem(itemIdOne, itemOne);
+        Item itemTwo = new Item("Rice Crispies", 10, 2, false);
+        Integer itemIdTwo = 101;
+        basket.addItem(itemIdTwo, itemTwo);
+        double basketValue = basket.getBasketValue();
+        assertEquals(45.0, basketValue, 0.0);
+    }
 
 }
